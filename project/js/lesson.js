@@ -39,7 +39,7 @@ const showTabContent = (index = 0) => {
 
 hideTabContent()
 showTabContent()
-tabsParent.onclick = (e) => {
+tabsPare.onclick = (e) => {
     if(e.target.classList.contains("tab_content_item")){
         tabContentItems.forEach((item, index) =>{
             if(e.target === item){
