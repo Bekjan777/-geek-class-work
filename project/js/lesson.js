@@ -7,10 +7,10 @@ const phoneResult = document.querySelector("#phone_result")
 const regExp = /\+996 [2579]\d{2} \d{2}-\d{2}-\d{2}/
 
 phoneButton.onclick = () => {
-    if (regExp.test(phoneInput.value)){
+    if (regExp.test(phoneInput.value)) {
         phoneResult.innerHTML = "OK"
         phoneResult.style.color = "green"
-    }else{
+    } else {
         phoneResult.innerHTML = "NOT OK"
         phoneResult.style.color = "red"
     }
@@ -39,14 +39,36 @@ const showTabContent = (index = 0) => {
 
 hideTabContent()
 showTabContent()
-tabsPare.onclick = (e) => {
-    if(e.target.classList.contains("tab_content_item")){
-        tabContentItems.forEach((item, index) =>{
-            if(e.target === item){
+let count = 1;
+tabsParent.onclick = (e) => {
+    if (e.target.classList.contains("tab_content_item")) {
+        tabContentItems.forEach((item, index) => {
+            // console.log(item, index)
+
+            if (e.target === item) {
                 hideTabContent()
                 showTabContent(index)
+                count = index
             }
         })
     }
 }
+
+// let count = 0;
+const interval = setInterval(() => {
+
+    if(count < tabContentItems.length - 1){
+        hideTabContent()
+        showTabContent(count)
+        // console.log(1)
+        count++
+    }else if(count === tabContentItems.length - 1){
+        hideTabContent()
+        showTabContent(count)
+        count = 0
+        // console.log(2)
+    }
+
+},3000)
+
 
