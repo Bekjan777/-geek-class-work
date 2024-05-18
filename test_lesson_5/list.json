@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Nurdin",
+    "status": "teacher",
+    "placeOfWork": "Geeks"
+  },
+  {
+    "name": "Aijigit",
+    "status": "friend",
+    "placeOfWork": "none"
+  },
+  {
+    "name": "Sadyr",
+    "status": "president",
+    "placeOfWork": "Kyrgyzstan"
+  },
+  {
+    "name": "Jarkyn",
+    "status": "mom",
+    "placeOfWork": "house"
+  }
+]
