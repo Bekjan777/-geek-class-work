@@ -57,5 +57,5 @@ request.send()
 request.onload = () => {
     const dataToLog = JSON.parse(request.response)
     console.log(dataToLog)
-    }
+}
 
