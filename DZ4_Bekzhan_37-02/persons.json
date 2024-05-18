@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Jojo",
+    "age": "51",
+    "img": "https://media.comicbook.com/2021/09/jojo-giorno-1281854.jpeg?auto=webp&width=1204&height=629&crop=1204:629,smart"
+  },
+  {
+    "name": "Naruto",
+    "age": "20",
+    "img": "https://wallpapers.com/images/hd/naruto-profile-pictures-sa1tekghfajrr928.jpg"
+  },
+  {
+    "name": "Luffy",
+    "age": "17",
+    "img": "https://i.pinimg.com/originals/50/08/ef/5008efb9df96969624d2674645027a3a.png"
+  }
+
+]
