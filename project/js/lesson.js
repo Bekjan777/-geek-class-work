@@ -57,18 +57,84 @@ tabsParent.onclick = (e) => {
 // let count = 0;
 const interval = setInterval(() => {
 
-    if(count < tabContentItems.length - 1){
+    if (count < tabContentItems.length - 1) {
         hideTabContent()
         showTabContent(count)
         // console.log(1)
         count++
-    }else if(count === tabContentItems.length - 1){
+    } else if (count === tabContentItems.length - 1) {
         hideTabContent()
         showTabContent(count)
         count = 0
         // console.log(2)
     }
 
-},3000)
+}, 3000)
+
+// convertar
+
+const usdInput = document.querySelector("#usd")
+const somInput = document.querySelector("#som")
+const euroInput = document.querySelector("#eur")
+// const converter = document.querySelector(".inner_converter")
 
 
+//
+// somInput.oninput = () => {
+//     console.log(1)
+//     const request = new XMLHttpRequest
+//     request.open("GET", "../data/converter.json")
+//     request.setRequestHeader("Content-type", "application/json")
+//     request.send()
+//
+//     request.onload = () => {
+//         const data = JSON.parse(request.response)
+//         usdInput.value = (somInput.value / data.usd).toFixed(2)
+//     }
+// }
+//
+// usdInput.oninput = () => {
+//     console.log(1)
+//     const request = new XMLHttpRequest
+//     request.open("GET", "../data/converter.json")
+//     request.setRequestHeader("Content-type", "application/json")
+//     request.send()
+//
+//     request.onload = () => {
+//         const data = JSON.parse(request.response)
+//         somInput.value = (usdInput.value * data.usd).toFixed(2)
+//     }
+// }
+//
+const converter = (element, targetElement, secondTargetElement) => {
+    element.oninput = () => {
+        const request = new XMLHttpRequest
+        request.open("GET", "../data/converter.json")
+        request.setRequestHeader("Content-type", "application/json")
+        request.send()
+
+        request.onload = () => {
+            const data = JSON.parse(request.response)
+            if(element.id === "som"){
+                targetElement.value = (element.value / data.usd).toFixed(2)
+                secondTargetElement.value = (element.value / data.euro).toFixed(2)
+            }
+            if(element.id === "usd"){
+                targetElement.value = (element.value * data.usd).toFixed(2)
+                secondTargetElement.value = (targetElement.value / data.euro).toFixed(2)
+            }
+            if(element.id === "eur"){
+                targetElement.value = (element.value * data.euro).toFixed(2)
+                secondTargetElement.value = (targetElement.value / data.usd).toFixed(2)
+            }
+            if(!element.value){
+                targetElement.value = ""
+                secondTargetElement.value = ""
+            }
+
+        }
+    }
+}
+converter(somInput, usdInput, euroInput)
+converter(usdInput, somInput, euroInput)
+converter(euroInput, somInput, usdInput)
