@@ -138,3 +138,44 @@ const converter = (element, targetElement, secondTargetElement) => {
 converter(somInput, usdInput, euroInput)
 converter(usdInput, somInput, euroInput)
 converter(euroInput, somInput, usdInput)
+
+// CARD SWITCHER
+// hw6 - part 1
+let cardID = 1
+const card = document.querySelector(".card")
+const btnNext = document.querySelector("#btn-next")
+const btnPrev = document.querySelector("#btn-prev")
+const parentSwitcher = document.querySelector(".inner_card_switcher")
+const toFetch = (cardID) => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${cardID}`)
+        .then(response => response.json())
+        .then(data => {
+            const {id, title, completed} = data
+            card.style.borderColor = completed ? "green": "red"
+            card.innerHTML = `
+            <p>${title}</p>
+            <p style="color: ${completed ? "green": "red"}">${completed}</p>
+            <span>${cardID}</span>
+            `
+        })
+}
+
+toFetch(1)
+
+
+parentSwitcher.onclick = (e) => {
+    if(e.target === btnNext){
+        cardID < 200 ? cardID++ : cardID = 1
+        toFetch(cardID)
+    }
+    if(e.target === btnPrev){
+        cardID > 1 ? cardID-- : cardID = 200
+        toFetch(cardID)
+    }
+}
+
+// part 2 of hw6
+
+fetch('https://jsonplaceholder.typicode.com/posts')
+    .then((response) => response.json())
+    .then(data => console.log(data))
