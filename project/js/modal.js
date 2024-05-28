@@ -13,7 +13,11 @@ const closeModal = () => {
     document.body.style.overflow = ""
 }
 
-modal.onclick = (event) => event.target === modal && closeModal()
+modal.onclick = (event) => {
+    if(event.target === modal){
+        closeModal()
+    }
+}
 
 modalTrigger.onclick = openModal
 
@@ -38,3 +42,19 @@ const toCheckIfItIsMaxOrNot = () => {
     }
 }
 window.addEventListener('scroll', toCheckIfItIsMaxOrNot);
+
+
+const form = document.querySelector("form")
+const token = "7153702905:AAEd9TfQEo9Kxa3pRBvBvGMwImQcwFku-Gs"
+const URL_API = `https://api.telegram.org/bot${token}/sendMessage`
+const chatId = "@test_bot_beka"
+form.onsubmit = async (e) => {
+    e.preventDefault()
+    const {name, phone} = (Object.fromEntries(new FormData(form).entries()))
+    const text = `Name: ${name}\nPhone: ${phone}`
+    await fetch(URL_API, {
+        method:'POST',
+        headers: {"Content-type": "application/json"},
+        body: JSON.stringify({chat_id: chatId, text})
+    })
+}

@@ -179,3 +179,28 @@ parentSwitcher.onclick = (e) => {
 fetch('https://jsonplaceholder.typicode.com/posts')
     .then((response) => response.json())
     .then(data => console.log(data))
+
+//WEATHER
+
+const citySearchInput = document.querySelector(".cityName")
+const btnSearch = document.querySelector("#search")
+const cityName = document.querySelector(".city")
+const cityTemp = document.querySelector(".temp")
+const weatherBlock = document.querySelector(".weather_block")
+const iconWeather = document.querySelector(".icon_weather")
+const defaultIcon = "https://openweathermap.org/img/wn/02d.png"
+const URL = "http://api.openweathermap.org/data/2.5/weather"
+const API_KEY = "e417df62e04d3b1b111abeab19cea714"
+
+const citySearch = () =>{
+    citySearchInput.oninput = (event) => {
+        fetch(`${URL}?q=${event.target.value}&appid=${API_KEY}`)
+            .then(response => response.json())
+            .then(data => {
+                cityName.innerHTML = data.name || "City is not defined"
+                cityTemp.innerHTML = data?.main?.temp ? Math.round(data.main?.temp - 273) + "&deg" : "///"
+                iconWeather.src = data?.weather ? `https://openweathermap.org/img/wn/${data?.weather[0]?.icon}.png` : defaultIcon
+            })
+    }
+}
+citySearch()
