@@ -107,34 +107,39 @@ const euroInput = document.querySelector("#eur")
 // }
 //
 const converter = (element, targetElement, secondTargetElement) => {
-    element.oninput = () => {
-        const request = new XMLHttpRequest
-        request.open("GET", "../data/converter.json")
-        request.setRequestHeader("Content-type", "application/json")
-        request.send()
+    element.oninput = async () => {
+        try {
+            const response = await fetch("../data/converter.json", {
+                headers: {
+                    "Content-type": "application/json"
+                }
+            });
+            const data = await response.json();
 
-        request.onload = () => {
-            const data = JSON.parse(request.response)
-            if(element.id === "som"){
-                targetElement.value = (element.value / data.usd).toFixed(2)
-                secondTargetElement.value = (element.value / data.euro).toFixed(2)
+            if (element.id === "som") {
+                targetElement.value = (element.value / data.usd).toFixed(2);
+                secondTargetElement.value = (element.value / data.euro).toFixed(2);
             }
-            if(element.id === "usd"){
-                targetElement.value = (element.value * data.usd).toFixed(2)
-                secondTargetElement.value = (targetElement.value / data.euro).toFixed(2)
+            if (element.id === "usd") {
+                targetElement.value = (element.value * data.usd).toFixed(2);
+                secondTargetElement.value = (targetElement.value / data.euro).toFixed(2);
             }
-            if(element.id === "eur"){
-                targetElement.value = (element.value * data.euro).toFixed(2)
-                secondTargetElement.value = (targetElement.value / data.usd).toFixed(2)
+            if (element.id === "eur") {
+                targetElement.value = (element.value * data.euro).toFixed(2);
+                secondTargetElement.value = (targetElement.value / data.usd).toFixed(2);
             }
-            if(!element.value){
-                targetElement.value = ""
-                secondTargetElement.value = ""
+            if (!element.value) {
+                targetElement.value = "";
+                secondTargetElement.value = "";
             }
-
+        } catch (error) {
+            console.error('Error fetching conversion data:', error);
+            targetElement.value = "";
+            secondTargetElement.value = "";
         }
-    }
+    };
 }
+
 converter(somInput, usdInput, euroInput)
 converter(usdInput, somInput, euroInput)
 converter(euroInput, somInput, usdInput)
@@ -146,19 +151,28 @@ const card = document.querySelector(".card")
 const btnNext = document.querySelector("#btn-next")
 const btnPrev = document.querySelector("#btn-prev")
 const parentSwitcher = document.querySelector(".inner_card_switcher")
-const toFetch = (cardID) => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${cardID}`)
-        .then(response => response.json())
-        .then(data => {
-            const {id, title, completed} = data
-            card.style.borderColor = completed ? "green": "red"
-            card.innerHTML = `
+const toFetch = async (cardID) => {
+    try {
+        const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${cardID}`);
+        const data = await response.json();
+        const { title, completed } = data;
+
+        card.style.borderColor = completed ? "green" : "red";
+        card.innerHTML = `
             <p>${title}</p>
-            <p style="color: ${completed ? "green": "red"}">${completed}</p>
+            <p style="color: ${completed ? "green" : "red"}">${completed}</p>
             <span>${cardID}</span>
-            `
-        })
+        `;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        card.innerHTML = `
+            <p>Error fetching data</p>
+            <span>${cardID}</span>
+        `;
+        card.style.borderColor = "gray";
+    }
 }
+
 
 toFetch(1)
 
@@ -192,15 +206,26 @@ const defaultIcon = "https://openweathermap.org/img/wn/02d.png"
 const URL = "http://api.openweathermap.org/data/2.5/weather"
 const API_KEY = "e417df62e04d3b1b111abeab19cea714"
 
-const citySearch = () =>{
-    citySearchInput.oninput = (event) => {
-        fetch(`${URL}?q=${event.target.value}&appid=${API_KEY}`)
-            .then(response => response.json())
-            .then(data => {
-                cityName.innerHTML = data.name || "City is not defined"
-                cityTemp.innerHTML = data?.main?.temp ? Math.round(data.main?.temp - 273) + "&deg" : "///"
-                iconWeather.src = data?.weather ? `https://openweathermap.org/img/wn/${data?.weather[0]?.icon}.png` : defaultIcon
-            })
+
+
+
+
+const citySearch = () => {
+    citySearchInput.oninput = async (event) => {
+        try {
+            const response = await fetch(`${URL}?q=${event.target.value}&appid=${API_KEY}`);
+            const data = await response.json();
+
+            cityName.innerHTML = data.name || "City is not defined";
+            cityTemp.innerHTML = data?.main?.temp ? Math.round(data.main.temp - 273) + "&deg" : "///";
+            iconWeather.src = data?.weather ? `https://openweathermap.org/img/wn/${data.weather[0].icon}.png` : defaultIcon;
+        } catch (error) {
+            console.error('Error fetching weather data:', error);
+            cityName.innerHTML = "Error fetching data";
+            cityTemp.innerHTML = "///";
+            iconWeather.src = defaultIcon;
+        }
     }
 }
-citySearch()
+
+citySearch();
