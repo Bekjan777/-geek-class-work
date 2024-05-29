@@ -1,0 +1,113 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.cards{
+    width: 100%;
+    background: black;
+    padding: 100px 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.card img {
+    width: 150px;
+    height: 150px;
+}
+.cards .card{
+    height: 600px;
+    /*width: 300px;*/
+    display: flex;
+    flex-direction: column;
+    transition: all 500ms ease;
+    border-radius: 10px;
+    gap: 30px;
+    padding: 30px;
+}
+.card #title {
+    font-size: 30px;
+}
+.card #body {
+    font-size: 25px;
+    opacity: 0.8;
+}
+.card:hover{
+    transform: scale(1.05);
+}
+/*body {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    height: 100vh;*/
+/*    background-color: #fffae5;*/
+/*    margin: 0;*/
+/*    font-family: Arial, sans-serif;*/
+/*}*/
+
+
+
+.game-container {
+    text-align: center;
+    width: 100%;
+    background: black;
+    padding: 100px 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    color: #ffcc00;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 5px;
+    margin: 20px auto;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #fff8b5;
+    border: 2px solid #ffcc00;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    color: #242424;
+}
+
+.cell:hover {
+    background-color: #ffeb7a;
+}
+
+button {
+    background-color: #ffcc00;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #e6b800;
+}
+
+#message {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #ff9900;
+}
