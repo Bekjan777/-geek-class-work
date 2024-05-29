@@ -31,7 +31,7 @@ toget()
 
 //4
 
-const btns = document.querySelectorAll("button")
+// const btns = document.querySelectorAll("button")
 const div = document.querySelector('div')
 div.onclick = (e) =>{
     if(e.target.innerHTML === 'red'){
