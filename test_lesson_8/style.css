@@ -41,4 +41,11 @@ a{
 }
 .good{
     text-decoration: none;
+    display: inline-block;
+    margin-top: 50px;
+}
+.num{
+    color: #fff;
+
+    font-size: 50px;
 }
